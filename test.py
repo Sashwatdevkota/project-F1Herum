@@ -54,4 +54,7 @@ bank2 = BankAccount("Sarah", 2000)
 bank1.transfer(bank2, 1000)
 
 print(bank1.check_balance())  
+print(bank2.check_balance()) 
+
+print(bank1.check_balance())  
 print(bank2.check_balance())  
