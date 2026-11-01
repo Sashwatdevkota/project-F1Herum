@@ -30,7 +30,24 @@ class Wallet:
 
         self.__balance += deposit
         print("Money added successfully")
+        
+    def makepayment(self,account,withdrawl):
+        if withdrawl <= 0:
+            print("Invalid amount")
+            return
+        if withdrawl > self.__balance:
+            
+            print("Less money in your account")
+            return
+        
+        account.pay(withdrawl)
+        self.__balance-=withdrawl
+        
 
     def check_balance(self):
         return self.__balance
 
+wallet = Wallet("Alex",5000)
+
+esewa=EsewaPayment()
+wallet.makepayment(esewa,1000)
