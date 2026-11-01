@@ -1,22 +1,35 @@
+
 from abc import ABC, abstractmethod
 
+
+# Abstraction
 class PaymentMethod(ABC):
+
     @abstractmethod
-    def pay(self,amount):
+    def pay(self, amount):
         pass
-    
+
+
+# Inheritance + Polymorphism
 class EsewaPayment(PaymentMethod):
-    def pay(self,amount):
-        print(f"You just paid {amount} via Esewa")
-        
+
+    def pay(self, amount):
+        print(f"You just paid Rs. {amount} via eSewa")
+
+
 class KhaltiPayment(PaymentMethod):
-    def pay(self,amount):
-        print(f"You just paid {amount} via Khalti")
-        
+
+    def pay(self, amount):
+        print(f"You just paid Rs. {amount} via Khalti")
+
+
 class BankTransferPayment(PaymentMethod):
-    def pay(self,amount):
-        print(f"You just paid {amount} via Bank Transfer")
-        
+
+    def pay(self, amount):
+        print(f"You just paid Rs. {amount} via Bank Transfer")
+
+
+# Encapsulation
 class Wallet:
 
     def __init__(self, owner, balance):
@@ -25,29 +38,35 @@ class Wallet:
 
     def addmoney(self, deposit):
         if deposit <= 0:
-            print("Invalid amount")
-            return
+            raise ValueError("Invalid amount")     
 
         self.__balance += deposit
         print("Money added successfully")
-        
-    def makepayment(self,account,withdrawl):
+
+    def makepayment(self, account, withdrawl):
+
         if withdrawl <= 0:
-            print("Invalid amount")
-            return
+            raise ValueError("Invalid amount")
+
         if withdrawl > self.__balance:
-            
-            print("Less money in your account")
-            return
-        
+            raise ("Insufficient balance")
+
         account.pay(withdrawl)
-        self.__balance-=withdrawl
-        
+        self.__balance -= withdrawl
+        print("Payment successful")
 
     def check_balance(self):
         return self.__balance
 
-wallet = Wallet("Alex",5000)
 
-esewa=EsewaPayment()
-wallet.makepayment(esewa,1000)
+# Testing
+wallet = Wallet("Alex", 5000)
+
+esewa = EsewaPayment()
+khalti = KhaltiPayment()
+bank = BankTransferPayment()
+
+wallet.makepayment(esewa, 1000)
+wallet.makepayment(khalti, 500)
+
+print("Remaining balance:", wallet.check_balance())
